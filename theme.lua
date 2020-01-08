@@ -1,14 +1,14 @@
 ---------------------------
 -- Default awesome theme --
 ---------------------------
-
+local gears = require("gears")
 local theme_assets = require("beautiful.theme_assets")
 local xresources = require("beautiful.xresources")
 local dpi = xresources.apply_dpi
 local awful = require("awful")
 local gfs = require("gears.filesystem")
 local themes_path = os.getenv("HOME") .. "/.config/awesome/icons/"
-
+local xrdb = xresources.get_current_theme () 
 local theme = {}
 
 theme.font          = "DejaVu Sans Mono 10"
@@ -24,7 +24,7 @@ theme.fg_focus      = "#ffffff"
 theme.fg_urgent     = "#ffffff"
 theme.fg_minimize   = "#ffffff"
 
-theme.useless_gap   = dpi(3)
+theme.useless_gap   = dpi(1)
 theme.border_width  = dpi(0)
 theme.border_normal = "#000000"
 theme.border_focus  = "#ffffff"
@@ -42,14 +42,14 @@ theme.border_radius = dpi(0)
 -- hotkeys_[bg|fg|border_width|border_color|shape|opacity|modifiers_fg|label_bg|label_fg|group_margin|font|description_font]
 -- Example:
 --theme.taglist_bg_focus = "#ff0000"
-theme.prompt_bg = "#222222"
+theme.prompt_bg = xrdb.background
 --Wibar
-theme.wibar_fg = "#b7c5d3"
-theme.wibar_bg = "#181e24"
---theme.wibar_opacity = 0.7
-theme.wibar_opacity = 1
-theme.wibar_border_width = dpi(0)
-
+theme.wibar_fg = xrdb.foreground
+theme.wibar_bg = xrdb.background
+theme.wibar_opacity = 0.9
+-- theme.wibar_opacity = .9
+theme.wibar_border_width = dpi(1)
+theme.wibar_border_color = xrdb.foreground
 theme.wibar_height = 25
 -- Generate taglist squares:
 local taglist_square_size = dpi(0)
@@ -60,8 +60,8 @@ theme.taglist_squares_unsel = theme_assets.taglist_squares_unsel(
   taglist_square_size, theme.fg_normal
 )
 
-theme.taglist_bg_focus = "#000000"
-theme.taglist_fg_focus = "#ffffff"
+theme.taglist_bg_focus = xrdb.foreground
+theme.taglist_fg_focus = xrdb.background
 theme.taglist_bg_occupied = "#00000000"
 theme.taglist_fg_occupied = "#ffffff50"
 --theme.taglist_bg_empty = theme.xbackground
@@ -70,7 +70,7 @@ theme.taglist_fg_occupied = "#ffffff50"
 --theme.taglist_fg_urgent = theme.xcolor3
 theme.taglist_disable_icon = false
 theme.taglist_spacing = dpi(1)
-theme.taglist_item_roundness = dpi(25)
+theme.taglist_item_roundness = dpi(0)
 
 --theme.taglist_text_empty    = {"","","","","","","","","",""}
 theme.taglist_text_occupied = {"","","","","","","","","",""}
@@ -78,16 +78,19 @@ theme.taglist_text_focused  = {"","","","","","",""}
 --theme.taglist_text_urgent = {"","","","","","","","","",""}
 
 -- Variables set for theming notifications:
--- notification_font
--- notification_[bg|fg]
+theme.notification_font = "Liberation Mono 10"
+theme.notification_bg = xrdb.background
+theme.notification_fg = xrdb.foreground
+
+
 -- notification_[width|height|margin]
--- notification_[border_color|border_width|shape|opacity]
+theme.notification_shape = gears.shape.rounded_rect
 theme.notification_icon_size = dpi(60)
---theme.notification_height = dpi(80)
---theme.notification_width = dpi(300)
-theme.notification_margin = dpi(15)
+theme.notification_max_height = dpi(100)
+theme.notification_max_width = dpi(500)
+theme.notification_margin = dpi(0)
 theme.notification_opacity = 1
-theme.notification_font = theme.font
+-- theme.notification_font = theme.font
 -- Variables set for theming the menu:
 -- menu_[bg|fg]_[normal|focus]
 -- menu_[border_color|border_width]
@@ -135,11 +138,11 @@ theme.tasklist_disable_icon = true
 --theme.tasklist_disable_task_name = false
 theme.tasklist_plain_task_name = true
 theme.tasklist_bg_focus = "#00000050"
-theme.tasklist_fg_focus = "#b7c5d3"
+theme.tasklist_fg_focus = xrdb.foreground
 theme.tasklist_bg_normal = "#00000000"
-theme.tasklist_fg_normal = "#b7c5d3"
+theme.tasklist_fg_normal = xrdb.foreground
 theme.tasklist_bg_minimize = "#000000"
-theme.tasklist_fg_minimize = "#b7c5d3"
+theme.tasklist_fg_minimize = xrdb.foreground
 theme.tasklist_spacing = dpi(5)
 theme.tasklist_align = "center"
 
@@ -171,7 +174,7 @@ theme.layout_cornerse = themes_path.."default/layouts/cornersew.png"
 theme.awesome_icon = themes_path.."apex.png"
 -- Define the icon theme for application icons. If not set then the icons
 -- from /usr/share/icons and /usr/share/icons/hicolor will be used.
-theme.icon_theme = "/usr/share/icons/Adwaita"
+theme.icon_theme = "/usr/share/icons/Papirus"
 
 return theme
 

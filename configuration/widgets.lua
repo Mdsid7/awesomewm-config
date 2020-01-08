@@ -49,7 +49,7 @@ date_widget =  awful.widget.watch("date +%D", 1, function(widget, stdout)
     -- else
     --     volume = " N/A"
     -- end
-    date = "  " .. date
+    date = "  " .. date .. "  "
     widget.text = date
 end)
 

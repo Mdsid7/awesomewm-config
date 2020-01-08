@@ -1,30 +1,33 @@
 -- If LuaRocks is installed, make sure that packages installed through it are
 -- found (e.g. lgi). If LuaRocks is not installed, do nothing.
+
 pcall(require, "luarocks.loader")
 -- Standard awesome library
+
 local gears = require("gears")
 local awful = require("awful")
-require("awful.autofocus")
--- Widget and layout library
 local wibox = require("wibox")
--- Theme handling library
 local beautiful = require("beautiful")
--- Notification library
-local naughty = require("naughty")
 local menubar = require("menubar")
 local hotkeys_popup = require("awful.hotkeys_popup")
 local themes_path = os.getenv("HOME") .. "/.config/awesome/icons/"
--- Enable hotkeys help widget for VIM and other apps
--- when client with a matching name is opened:
+local xrdb = beautiful.xresources.get_current_theme () 
+require("awful.autofocus")
 require("awful.hotkeys_popup.keys")
+
+modkey = "Mod4"
+--Custom confiuration library
+
 local widgets = require("configuration.widgets")
-local gears = require("gears")
+local hotkeys = require("configuration.keys") -- load file with hotkeys configuration
+beautiful.init("/home/sud7535/.config/awesome/theme.lua")
+
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
 -- another config (This code will only ever execute for the fallback config)
 if awesome.startup_errors then
   naughty.notify({ preset = naughty.config.presets.critical,
-                   title = "Oops, there were errors during startup!",
+                   title = "YE KYA KIYAAAA!",
                    text = awesome.startup_errors })
 end
 
@@ -46,7 +49,6 @@ end
 
 -- {{{ Variable definitions
 -- Themes define colours, icons, font and wallpapers.
-beautiful.init("/home/sud7535/.config/awesome/theme.lua")
 
 -- This is used later as the default terminal and editor to run.
 terminal = "alacritty"
@@ -58,7 +60,6 @@ editor_cmd = editor
 -- If you do not like this or do not have such a key,
 -- I suggest you to remap Mod4 to another key using xmodmap or other tools.
 -- However, you can use another modifier like Mod1, but it may interact with others.
-modkey = "Mod4"
 
 -- Table of layouts to cover with awful.layout.inc, order matters.
 awful.layout.layouts = {
@@ -83,7 +84,7 @@ awful.layout.layouts = {
 -- {{{ Menu
 -- Create a launcher widget and a main menu
 myawesomemenu = {
-  { "hotkeys", function() hotkeys_popup.show_help(nil, awful.screen.focused()) end },
+  { "Keybindings", function() hotkeys_popup.show_help(nil, awful.screen.focused()) end },
   { "manual", terminal .. " -e man awesome" },
   { "edit config", editor_cmd .. " " .. awesome.conffile },
   { "restart", awesome.restart },
@@ -94,7 +95,7 @@ mymainmenu = awful.menu({ items = {
                             { "Awesome", myawesomemenu, beautiful.awesome_icon },
                             { "Terminal", terminal, themes_path.."termux.png" },
                             {"Firefox", "firefox", themes_path.."firefox.png"},
-                            {"Nemo", "nemo", themes_path.."filemanager.png"},
+                            {"Dolphin", "dolphin", themes_path.."filemanager.png"},
 }
                        })
 
@@ -151,23 +152,7 @@ local tasklist_buttons = gears.table.join(
 end))
 
 local function set_wallpaper(s)
-  -- Wallpaper
-  if beautiful.wallpaper then
-    local wallpaper = beautiful.wallpaper
-    -- If wallpaper is a function, call it with the screen
-    if type(wallpaper) == "function" then
-      wallpaper = wallpaper(s)
-    end
-
-    -- Method 1: Built in function
-    --gears.wallpaper.maximized(wallpaper, s, true)
-
-    -- Method 2: Set theme's wallpaper with feh
-    --awful.spawn.with_shell("feh --bg-fill " .. wallpaper)
-
-    -- Method 3: Set last wallpaper with feh
     awful.spawn.with_shell(os.getenv("HOME") .. "/.fehbg")
-  end
 end
 
 -- Re-set wallpaper when a screen's geometry changes (e.g. different resolution)
@@ -223,7 +208,7 @@ awful.screen.connect_for_each_screen(function(s)
       buttons = tasklist_buttons,
       style    = {
         border_width = 1,
-        border_color = '#777777',
+        border_color = '#fffffff',
         shape        = gears.shape.rounded_rect,
       }
     } 
@@ -243,13 +228,13 @@ awful.screen.connect_for_each_screen(function(s)
       {
         layout = wibox.layout.align.horizontal,   
         wibox.widget{
-          color = '#282a2e',
+          color = xrdb.foreground,
           forced_width = 2,
           widget = wibox.widget.separator
         },
         s.mytasklist, -- Middle widget
         wibox.widget{
-          color = '#282a2e',
+          color = xrdb.foreground,
           forced_width = 2,
           widget = wibox.widget.separator
         },
@@ -258,7 +243,7 @@ awful.screen.connect_for_each_screen(function(s)
         layout = wibox.layout.fixed.horizontal,
         brightness_widget,
         wibox.widget{
-          color = '#282a2e',
+          color = xrdb.foreground,
           forced_width = 20,
           widget = wibox.widget.separator
         },
@@ -270,31 +255,31 @@ awful.screen.connect_for_each_screen(function(s)
         -- },
         volume_widget,
         wibox.widget{
-          color = '#282a2e',
+          color = xrdb.foreground,
           forced_width = 20,
           widget = wibox.widget.separator
         },
         battery_widget,
         wibox.widget{
-          color = '#282a2e',
+          color = xrdb.foreground,
           forced_width = 20,
           widget = wibox.widget.separator
         },
         net_widget,
         wibox.widget{
-          color = '#282a2e',
-          forced_width = 20,
-          widget = wibox.widget.separator
-        },
-        date_widget,
-        wibox.widget{
-          color = '#282a2e',
+          color = xrdb.foreground,
           forced_width = 20,
           widget = wibox.widget.separator
         },
         time_widget,
         wibox.widget{
-          color = '#282a2e',
+          color = xrdb.foreground,
+          forced_width = 20,
+          widget = wibox.widget.separator
+        },
+        date_widget,
+        wibox.widget{
+          color = xrdb.foreground,
           forced_width = 20,
           widget = wibox.widget.separator
         },
@@ -304,7 +289,6 @@ awful.screen.connect_for_each_screen(function(s)
 end)
 -- }}}
 
-local hotkeys = require("configuration.keys") -- load file with hotkeys configuration
 --hotkeys:init({ env = env, menu = mymenu.mainmenu })
 
 

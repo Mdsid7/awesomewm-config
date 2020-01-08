@@ -62,8 +62,8 @@ globalkeys = gears.table.join(
         {description = "go back", group = "client"}),
 
     -- Standard program
-    awful.key({ modkey,           }, "Return", function () awful.spawn(terminal) end,
-              {description = "open a terminal", group = "launcher"}),
+    awful.key({ modkey,           }, "Return", function () awful.spawn(editor) end,
+              {description = "Open Emacs", group = "launcher"}),
     awful.key({ modkey, "Control" }, "r", awesome.restart,
               {description = "reload awesome", group = "awesome"}),
     awful.key({ modkey, "Control"   }, "q", awesome.quit,
@@ -81,9 +81,9 @@ globalkeys = gears.table.join(
               {description = "increase the number of columns", group = "layout"}),
     awful.key({ modkey, "Control" }, "l",     function () awful.tag.incncol(-1, nil, true)    end,
               {description = "decrease the number of columns", group = "layout"}),
-    awful.key({ modkey,           }, "space", function () awful.layout.inc( 1)                end,
-              {description = "select next", group = "layout"}),
-    awful.key({ modkey, "Shift"   }, "space", function () awful.layout.inc(-1)                end,
+    awful.key({ modkey,           }, "space", function () awful.spawn(terminal)                end,
+              {description = "Open Alacritty", group = "launcher"}),
+    awful.key({ modkey, "Shift"   }, "space", function () awful.layout.inc(1)                end,
               {description = "select previous", group = "layout"}),
 
     awful.key({ modkey, "Control" }, "n",
@@ -117,28 +117,28 @@ globalkeys = gears.table.join(
               {description = "show the menubar", group = "launcher"}),
 	
 awful.key({}, "XF86MonBrightnessUp", function() awful.spawn.with_shell("light -A 5") end,
-{description = "Brightness Up", group = "launcher"}),	
+{description = "Brightness Up", group = "Media"}),	
 
 awful.key({}, "XF86MonBrightnessDown", function() awful.spawn.with_shell("light -U 5") end,
-{description = "Brightness Up", group = "launcher"}),
+{description = "Brightness Up", group = "Media"}),
 
 awful.key({}, "XF86AudioRaiseVolume", function() awful.spawn.with_shell("pamixer -i 5") end,
-{description = "Volume Up", group = "launcher"}),
+{description = "Volume Up", group = "Media"}),
 
 awful.key({}, "XF86AudioLowerVolume", function() awful.spawn.with_shell("pamixer -d 5") end,
-{description = "Volume Down", group = "launcher"}),
+{description = "Volume Down", group = "Media"}),
 
 awful.key({}, "XF86AudioMute", function() awful.spawn.with_shell("pamixer -t") end,
-{description = "Volume Mute", group = "launcher"}),
+{description = "Volume Mute", group = "Media"}),
 
 awful.key({}, "XF86AudioPlay", function() awful.spawn.with_shell("mpvc toggle") end,
-{description = "Music Toggle", group = "launcher"}),
+{description = "Music Toggle", group = "Media"}),
 
 awful.key({}, "XF86AudioNext", function() awful.spawn.with_shell("mpvc next") end,
-{description = "Music Next", group = "launcher"}),
+{description = "Music Next", group = "Media"}),
 
 awful.key({}, "XF86AudioPrev", function() awful.spawn.with_shell("mpvc prev") end,
-{description = "Music Prev", group = "launcher"}),
+{description = "Music Prev", group = "Media"}),
 
 --Screenshots
 -- Screenshots
@@ -156,10 +156,10 @@ awful.key( {modkey}, "Print", function() awful.spawn.with_shell("sleep 3 && maim
       --  {description = "edit most recent screenshot with gimp", group = "screenshots"}),
 
 awful.key({modkey}, "d", function() awful.spawn.with_shell("rofi -show run") end,
-{description = "Screenshot", group = "launcher"}),
+{description = "Screenshot", group = "launcher"})
 
-awful.key({modkey}, "e", function() awful.spawn.with_shell("emacsclient -c") end,
-{description = "Emacs", group = "launcher"})
+-- awful.key({modkey}, "e", function() awful.spawn.with_shell("emacsclient -c") end,
+-- {description = "Emacs", group = "launcher"})
 
 
 )
@@ -171,7 +171,7 @@ clientkeys = gears.table.join(
             c:raise()
         end,
         {description = "toggle fullscreen", group = "client"}),
-    awful.key({ modkey, "Shift"   }, "q",      function (c) c:kill()                         end,
+    awful.key({ modkey,   }, "q",      function (c) c:kill()                         end,
               {description = "close", group = "client"}),
     awful.key({ modkey, "Control" }, "space",  awful.client.floating.toggle                     ,
               {description = "toggle floating", group = "client"}),
