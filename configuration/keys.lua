@@ -1,5 +1,5 @@
 local awful = require("awful")
-
+local wibox = require("wibox")
 local hotkeys = { mouse = {}, raw = {}, keys = {}, fake = {} }
 
 local gears = require("gears")
@@ -156,10 +156,13 @@ awful.key( {modkey}, "Print", function() awful.spawn.with_shell("sleep 3 && maim
       --  {description = "edit most recent screenshot with gimp", group = "screenshots"}),
 
 awful.key({modkey}, "d", function() awful.spawn.with_shell("rofi -show run") end,
-{description = "Screenshot", group = "launcher"})
+{description = "Screenshot", group = "launcher"}),
 
--- awful.key({modkey}, "e", function() awful.spawn.with_shell("emacsclient -c") end,
--- {description = "Emacs", group = "launcher"})
+awful.key({modkey},"Tab", function()
+    awful.menu.clients({
+    })
+                          end,
+ {description = "Emacs", group = "launcher"})
 
 
 )

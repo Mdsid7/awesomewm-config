@@ -54,6 +54,7 @@ end
 terminal = "alacritty"
 editor = "emacsclient -c"
 editor_cmd = editor
+browser = "firefox"
 
 -- Default modkey.
 -- Usually, Mod4 is the key with a logo between Control and Alt.
@@ -83,25 +84,25 @@ awful.layout.layouts = {
 
 -- {{{ Menu
 -- Create a launcher widget and a main menu
-myawesomemenu = {
-  { "Keybindings", function() hotkeys_popup.show_help(nil, awful.screen.focused()) end },
-  { "manual", terminal .. " -e man awesome" },
-  { "edit config", editor_cmd .. " " .. awesome.conffile },
-  { "restart", awesome.restart },
-  { "Quit", function() awesome.quit() end },
-}
+-- myawesomemenu = {
+--   { "Keybindings", function() hotkeys_popup.show_help(nil, awful.screen.focused()) end },
+--   { "manual", terminal .. " -e man awesome" },
+--   { "edit config", editor_cmd .. " " .. awesome.conffile },
+--   { "restart", awesome.restart },
+--   { "Quit", function() awesome.quit() end },
+-- }
 
-mymainmenu = awful.menu({ items = {
-                            { "Awesome", myawesomemenu, beautiful.awesome_icon },
-                            { "Terminal", terminal, themes_path.."termux.png" },
-                            {"Firefox", "firefox", themes_path.."firefox.png"},
-                            {"Dolphin", "dolphin", themes_path.."filemanager.png"},
-}
-                       })
+-- mymainmenu = awful.menu({ items = {
+--                             { "Awesome", myawesomemenu, beautiful.awesome_icon },
+--                             { "Terminal", terminal, themes_path.."termux.png" },
+--                             {"Firefox", "firefox", themes_path.."firefox.png"},
+--                             {"Dolphin", "dolphin", themes_path.."filemanager.png"},
+-- }
+--                        })
 
-mylauncher = awful.widget.launcher({ image = themes_path.."apex.png",
-                                     menu = mymainmenu })
-
+-- mylauncher = awful.widget.launcher({ image = themes_path.."apex.png",
+--                                      menu = mymainmenu })
+require("configuration.menu")
 -- Menubar configuration
 menubar.utils.terminal = terminal -- Set the terminal for applications that require it
 -- }}}
@@ -150,6 +151,7 @@ local tasklist_buttons = gears.table.join(
   awful.button({ }, 5, function ()
       awful.client.focus.byidx(-1)
 end))
+
 
 local function set_wallpaper(s)
     awful.spawn.with_shell(os.getenv("HOME") .. "/.fehbg")
