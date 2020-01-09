@@ -145,24 +145,18 @@ awful.key({}, "XF86AudioPrev", function() awful.spawn.with_shell("mpvc prev") en
 awful.key( { }, "Print", function()  awful.spawn.with_shell(" sleep 3 && maim ~/Pictures/Desktop/$(date +%s).png")
 			 naughty.notify({ title = "Screenshot", message = "Screenshot taken", icon = icon, timeout = 2})end,
         {description = "take full screenshot", group = "screenshots"}),
-    --awful.key( { superkey, shiftkey }, "c", function() helpers.screenshot("selection") end,
-    --    {description = "select area to capture", group = "screenshots"}),
-    --awful.key( { superkey, ctrlkey }, "c", function() helpers.screenshot("clipboard") end,
-    --    {description = "select area to copy to clipboard", group = "screenshots"}),
 awful.key( {modkey}, "Print", function() awful.spawn.with_shell("sleep 3 && maim -s ~/Pictures/Desktop/$(date +%s).png")
 				  naughty.notify({ title = "Screenshot", message = "Screenshot taken", icon = icon,timeout = 2})end,
         {description = "browse screenshots", group = "screenshots"}),
-    --awful.key( { superkey, shiftkey }, "Print", function() helpers.screenshot("gimp") end,
-      --  {description = "edit most recent screenshot with gimp", group = "screenshots"}),
 
-awful.key({modkey}, "d", function() awful.spawn.with_shell("rofi -show run") end,
+awful.key({modkey}, "d", function() awful.spawn("rofi -show run") end,
 {description = "Screenshot", group = "launcher"}),
 
 awful.key({modkey},"Tab", function()
     awful.menu.clients({
     })
                           end,
- {description = "Emacs", group = "launcher"})
+ {description = "All windows", group = "launcher"})
 
 
 )
